@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import usersRoutes from "./routes/users.js";
 import mongoose from "mongoose";
+import bannerRoutes from "./routes/banner.js";
 
 const app = express();
 const PORT = 3001;
@@ -18,8 +19,9 @@ mongoose.connect('mongodb://127.0.0.1/students',{
     console.log("not connection",e)
 
 })
+app.use('/banner', bannerRoutes);
 
-app.use("/users", usersRoutes);
+// app.use("/users", usersRoutes);
 app.get("/", (req, res) => res.send("Welcome to the Users API"));
 app.all("*", (req, res) =>res.send("You've tried reaching a route that doesn't exist."));
 
