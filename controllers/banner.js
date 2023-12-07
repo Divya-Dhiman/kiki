@@ -29,7 +29,7 @@ export const getBanner = async (req, res) => {
   
     
       const newBanner = await Banner.create({ title, description, imageUrl, status });
-      res.json(newBanner);
+      res.status(200).json(newBanner);
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
@@ -40,16 +40,46 @@ export const getBanner = async (req, res) => {
     const { id } = req.params;
   
     try {
-      const bannerToDelete = await Banner.findById(id);
+      const bannerDelete = await Banner.findById(id);
   
-      if (!bannerToDelete) {
+      if (!bannerDelete) {
         return res.status(404).json({ error: 'Banner not found' });
       }
   
       const deletedBanner = await Banner.findByIdAndDelete(id);
-      res.json({ success: true });
+      res.json(deletedBanner);
     } catch (error) {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   };
+  
+
+ 
+  export const updateBanner = async (req, res) => {
+    const { id } = req.params;
+    const { title, description, imageUrl, status } = req.body;
+  
+    try {
+      const bannerUpdate = await Banner.findById(id);
+  
+      if (!bannerUpdate) {
+        return res.status(404).json({ error: 'Banner not found' });
+      }
+  
+
+      bannerUpdate.title = title;
+      bannerUpdate.description = description;
+      bannerUpdate.imageUrl = imageUrl;
+      bannerUpdate.status = status;
+  
+      
+      const updatedBanner = await bannerUpdate.save();
+      
+      res.json(updatedBanner);
+    } catch (error) {
+      console.error('Error updating banner:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+  
   

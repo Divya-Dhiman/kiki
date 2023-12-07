@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import usersRoutes from "./routes/users.js";
+import compression from "compression";
 import mongoose from "mongoose";
 import bannerRoutes from "./routes/banner.js";
 
@@ -10,6 +11,7 @@ const PORT = 3001;
 
 app.use(bodyParser.json());
 app.use(cors())
+app.use(compression());
 
 mongoose.connect('mongodb://127.0.0.1/students',{
    // useNewUrlPaser:true,
@@ -21,7 +23,7 @@ mongoose.connect('mongodb://127.0.0.1/students',{
 })
 app.use('/banner', bannerRoutes);
 
-// app.use("/users", usersRoutes);
+app.use("/users", usersRoutes);
 app.get("/", (req, res) => res.send("Welcome to the Users API"));
 app.all("*", (req, res) =>res.send("You've tried reaching a route that doesn't exist."));
 
