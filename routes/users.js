@@ -12,18 +12,17 @@ router.post('/login', login);
 
 router.post('/createUser', createUser);
 
-
+router.delete('/deleteUser/:id', deleteUser);
 router.get('/getUserById/:id', getUserById)
+router.put('/updateUser/:id', updateUser);
 
 router.use(authmiddleware);
 
 
 router.get('/getUsers', getUsers);
-
-
 router.delete('/deleteUser/:id', deleteUser);
 
-router.put('/updateUser/:id', updateUser);
+
 
 
 router.get('/protected', authmiddleware, (req, res) => {
