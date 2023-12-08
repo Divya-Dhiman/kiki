@@ -15,6 +15,23 @@ export const getBanner = async (req, res) => {
     }
 }
 
+export const getBannerById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const banner = await Banner.findById(id);
+
+    if (!banner) {
+      return res.status(404).json({ error: 'Banner not found' });
+    }
+
+    res.json(banner);
+  } catch (error) {
+    console.error('Error fetching banner by ID:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 
   export const createBanner = async (req, res) => {
     const { title, description, imageUrl, status } = req.body;
