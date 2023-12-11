@@ -5,8 +5,8 @@ import authmiddleware from '../middleware/authmiddleware.js';
 const router = express.Router();
 
 router.get('/getBanner', getBanner);
-router.post('/createbanner', createBanner);
-router.delete('/deletebanner/:id', deleteBanner);
+router.post('/createBanner', createBanner);
+router.delete('/deleteBanner/:id', deleteBanner);
 router.put('/updateBanner/:id', updateBanner);
 router.get('/getBannerById/:id', getBannerById);
 router.use(authmiddleware);
